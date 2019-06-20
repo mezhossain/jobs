@@ -1,6 +1,11 @@
 Ext.define("Jobs.model.Job",{
 	extend : "Ext.data.Model",
-	requires : [ "Ext.data.identifier.Negative", "Ext.data.validator.Length", "Ext.data.validator.Presence" ],
+	requires :  [ 
+                "Ext.data.proxy.Direct",
+                "Ext.data.identifier.Negative",
+                "Ext.data.validator.Length",
+                "Ext.data.validator.Presence" 
+              ],
 	identifier : "negative",
 	fields : [
 	{
@@ -64,11 +69,21 @@ Ext.define("Jobs.model.Job",{
         type : "presence"
     }]
   }],
-  proxy: {
-      type: 'memory',
-      reader: {
-          type: 'json',
-          rootProperty: 'items'
-      }
+  proxy : {
+    type : 'ajax',
+    url: '/api/jobs',
+    api: {
+      create  : '/api/jobs/add',
+      read    : '/api/jobs/get',
+      update  : '/api/jobs/update',
+      destroy : '/api/jobs/delete'
+    },
+    reader : {
+      type: 'json',
+      rootProperty : 'jobs'
+    },
+    writer : {
+      writeAllFields : true
+    }
   }
 });

@@ -7,8 +7,9 @@ Ext.define('Ext.ux.LiveSearchGridPanel', {
         'Ext.toolbar.TextItem',
         'Ext.form.field.Checkbox',
         'Ext.form.field.Text',
-        'Ext.ux.statusbar.StatusBar'
+        'Ext.ux.statusbar.StatusBar',
     ],
+    controller: 'main',
     
     /**
      * @private
@@ -100,9 +101,20 @@ Ext.define('Ext.ux.LiveSearchGridPanel', {
 
         ];
 
-        me.bbar = new Ext.ux.StatusBar({
+        me.bbar = new Ext.ux.StatusBar(
+        {
             defaultText: me.defaultStatusText,
-            name: 'searchStatusBar'
+            name: 'searchStatusBar',
+            items:[{
+                iconCls : 'x-fa fa-plus',
+                handler : 'newJob'
+            },{
+                iconCls : 'x-fa fa-trash',
+                handler : 'deleteJob',
+                bind : {
+                disabled : '{!selectedJob}'
+                }
+            }]
         });
         
         me.callParent(arguments);
@@ -116,6 +128,18 @@ Ext.define('Ext.ux.LiveSearchGridPanel', {
         me.statusBar = me.down('statusbar[name=searchStatusBar]');
 
         me.view.on('cellkeydown', me.focusTextField, me);
+
+        Ext.Ajax.request({
+            url : 'api/jobs',
+            method : 'POST',
+            params : jsonString,
+            success : function(result, request) {
+                console.log('success');
+            },
+            failure : function(result, request) {
+                console.log('fail');
+            }
+        });
     },
 
     focusTextField: function(view, td, cellIndex, record, tr, rowIndex, e, eOpts) {
@@ -301,5 +325,18 @@ Ext.define('Ext.ux.LiveSearchGridPanel', {
             this.getNavigationModel().setPosition(pos.record, pos.column);
             this.getSelectionModel().select(pos.record);
         }
+    },
+    showData :function() {
+        Ext.Ajax.request({
+            url : 'api/jobs',
+            method : 'POST',
+            params : jsonString,
+            success : function(result, request) {
+                console.log('success');
+            },
+            failure : function(result, request) {
+                console.log('fail');
+            }
+        });
     }
 });

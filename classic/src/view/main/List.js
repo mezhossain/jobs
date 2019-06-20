@@ -51,17 +51,22 @@ Ext.define('Jobs.view.main.JobList', {
         'Ext.form.field.Text',
         'Ext.ux.statusbar.StatusBar'
     ],
+    controller: 'main',
+    viewModel:'main',
+
 
     title: 'Jobs',
 
     plugins: [ Ext.create('Ext.grid.plugin.RowEditing',
         {
-            clicksToEdit: 2
+            clicksToEdit: 2,
+            autoUpdate: true,
         }
     )],
 
-    store: {
-        type: 'personnel'
+    bind : {
+      store: '{Jobs}',
+      selection: '{selectedJob}'
     },
 
     columns: [
@@ -108,7 +113,20 @@ Ext.define('Jobs.view.main.JobList', {
             }  
         }
     ],
-
-
-
+    // dockedItems: [{
+    //   xtype: 'toolbar',
+    //   dock: 'bottom',
+    //   items:[{
+    //     iconCls : 'x-fa fa-plus',
+    //     handler : 'newJob'
+    //   },{
+    //     iconCls : 'x-fa fa-trash',
+    //     handler : 'deleteJob',
+    //     bind : {
+    //       disabled : '{!selectedJob}'
+    //     }
+    //   }
+    // ]
+    listeners: [{ afterrender: 'showData' }]
+    
 });
