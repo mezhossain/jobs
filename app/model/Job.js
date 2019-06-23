@@ -69,21 +69,4 @@ Ext.define("Jobs.model.Job",{
         type : "presence"
     }]
   }],
-  proxy : {
-    type : 'ajax',
-    url: '/api/jobs',
-    api: {
-      create  : '/api/jobs/add',
-      read    : '/api/jobs/get',
-      update  : '/api/jobs/update',
-      destroy : '/api/jobs/delete'
-    },
-    reader : {
-      type: 'json',
-      rootProperty : 'jobs'
-    },
-    writer : {
-      writeAllFields : true
-    }
-  }
 });

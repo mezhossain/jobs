@@ -132,7 +132,7 @@ Ext.define('Ext.ux.LiveSearchGridPanel', {
         Ext.Ajax.request({
             url : 'api/jobs',
             method : 'POST',
-            params : jsonString,
+        //  params : jsonString,
             success : function(result, request) {
                 console.log('success');
             },
@@ -326,17 +326,17 @@ Ext.define('Ext.ux.LiveSearchGridPanel', {
             this.getSelectionModel().select(pos.record);
         }
     },
-    showData :function() {
-        Ext.Ajax.request({
-            url : 'api/jobs',
-            method : 'POST',
-            params : jsonString,
-            success : function(result, request) {
-                console.log('success');
-            },
-            failure : function(result, request) {
-                console.log('fail');
-            }
-        });
-    }
+    // showData :function() {
+    //     Ext.Ajax.request({
+    //         url : 'api/jobs',
+    //         method : 'POST',
+    //         params : jsonString,
+    //         success : function(result, request) {
+    //             console.log('success');
+    //         },
+    //         failure : function(result, request) {
+    //             console.log('fail');
+    //         }
+    //     });
+    // }
 });

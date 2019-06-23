@@ -20,6 +20,17 @@ Ext.define('Jobs.view.main.MainModel', {
 			remoteSort: false,
 			remoteFilter: false,
 			autoSync: true,
+			proxy : {
+    			type : 'rest',
+    			url: '/api/jobs',
+    			reader : {
+      				type: 'json',
+     				rootProperty : 'jobs'
+    			},
+		    	writer : {
+		      		writeAllFields : true
+		    	}
+ 			} 
 		}
 	}
 });
