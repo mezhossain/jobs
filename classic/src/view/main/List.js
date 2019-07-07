@@ -50,27 +50,33 @@ Ext.define('Jobs.view.main.JobList', {
    'Ext.form.field.Checkbox',
    'Ext.form.field.Text',
    'Ext.ux.statusbar.StatusBar'
-   ],
-   controller: 'main',
-   viewModel:'main',
+  ],
+  controller: 'main',
+  viewModel:'main',
 
 
-   title: 'Jobs',
+  title: 'Jobs',
 
-   plugins: [ Ext.create('Ext.grid.plugin.RowEditing',
-   {
-    clicksToEdit: 2,
-    autoUpdate: true,
-  }
-  )],
+  // plugins: [ Ext.create('Ext.grid.plugin.RowEditing',
+  //   {
+  //     clicksToEdit: 2,
+  //     autoUpdate: true,
+  //   })],
+  //selModel: 'cellmodel',
+  plugins: [ Ext.create('Ext.grid.plugin.RowEditing',
+    {
+      clicksToEdit: 2,
+      autoUpdate: true,
+    })],
 
-   bind : {
+  bind : {
     store: '{Jobs}',
     selection: '{selectedJob}'
   },
 
   columns: [
   { 
+
     text: 'Job ID',  
     dataIndex: 'jobId', 
     flex: 0.3, 
@@ -113,6 +119,52 @@ Ext.define('Jobs.view.main.JobList', {
     }  
   }
   ],
+  // columns: [{
+  //   text: 'Title', 
+  //   dataIndex: 'title', 
+  //   flex: 1, 
+  //   sortable: true, 
+  //   editor:
+  //   {
+  //     allowBlank: false
+  //   } 
+  // },{ 
+  //   text: 'Title', 
+  //   dataIndex: 'title', 
+  //   flex: 1, 
+  //   sortable: true, 
+  //   editor:
+  //   {
+  //     allowBlank: false
+  //   } 
+  // },{ 
+  //   text: 'Title', 
+  //   dataIndex: 'title', 
+  //   flex: 1, 
+  //   sortable: true, 
+  //   editor:
+  //   {
+  //     allowBlank: false
+  //   } 
+  // },{ 
+  //   text: 'Title', 
+  //   dataIndex: 'title', 
+  //   flex: 1, 
+  //   sortable: true, 
+  //   editor:
+  //   {
+  //     allowBlank: false
+  //   } 
+  // },{ 
+  //   text: 'Title', 
+  //   dataIndex: 'title', 
+  //   flex: 1, 
+  //   sortable: true, 
+  //   editor:
+  //   {
+  //     allowBlank: false
+  //   } 
+  // }]
     // dockedItems: [{
     //   xtype: 'toolbar',
     //   dock: 'bottom',

@@ -129,17 +129,17 @@ Ext.define('Ext.ux.LiveSearchGridPanel', {
 
         me.view.on('cellkeydown', me.focusTextField, me);
 
-        Ext.Ajax.request({
-            url : 'api/jobs',
-            method : 'POST',
-        //  params : jsonString,
-            success : function(result, request) {
-                console.log('success');
-            },
-            failure : function(result, request) {
-                console.log('fail');
-            }
-        });
+        // Ext.Ajax.request({
+        //     url : 'api/jobs',
+        //     method : 'POST',
+        // //  params : jsonString,
+        //     success : function(result, request) {
+        //         console.log('success');
+        //     },
+        //     failure : function(result, request) {
+        //         console.log('fail');
+        //     }
+        // });
     },
 
     focusTextField: function(view, td, cellIndex, record, tr, rowIndex, e, eOpts) {

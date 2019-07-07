@@ -25,17 +25,17 @@ Ext.define('Jobs.view.main.MainController', {
 					// 	align: 't',
 					// 	shadow: true
 					// });
-					// Ext.Ajax.request({
-     //                    url: '/api/jobs/delete',
-     //                    method  : 'POST',
-     //                    jsonData: Ext.create('Jobs.model.Job').getData(),
-     //                    success: function(response){
-     //           				Ext.Msg.alert('Status', 'Deleted successfully.');
-     //                    },
-     //                    failure: function(response){
-     //                    	Ext.Msg.alert('Status', 'Deletion failed');
-     //                    }
-     //                });
+					Ext.Ajax.request({
+                        url: '/api/jobs/delete/{id}',
+                        method  : 'DELETE',
+                        jsonData: Ext.create('Jobs.model.Job').getData(),
+                        success: function(response){
+               				Ext.Msg.alert('Status', 'Deleted successfully.');
+                        },
+                        failure: function(response){
+                        	Ext.Msg.alert('Status', 'Deletion failed');
+                        }
+                    });
 					this.getStore('Jobs').load();
 				}
 			});
@@ -97,7 +97,7 @@ Ext.define('Jobs.view.main.MainController', {
                       		var type = this.up('window').down('textfield[name=type]').getValue();
                       		var category = this.up('window').down('textfield[name=category]').getValue();
                       		var location = this.up('window').down('textfield[name=location]').getValue();
-                      		// Ext.toast("Job ID : "+newJobID+"<br>Job: "+newJob+"<br>Type: "+type+"<br>Category: "+category+"<br>Location: "+location);
+                      		Ext.toast("Job ID : "+newJobID+"<br>Job: "+newJob+"<br>Type: "+type+"<br>Category: "+category+"<br>Location: "+location);
                       		var Job = new Jobs.model.Job({
                       			jobId: newJobID,
                       			title: newJob,
@@ -107,17 +107,20 @@ Ext.define('Jobs.view.main.MainController', {
                       		});
                       		thisInstance.getStore('Jobs').insert(0, Job);
                       		thisInstance.getStore('Jobs').sync();
-             //          		Ext.Ajax.request({
-            	// 				url : '/api/jobs/add',
-					        //     method : 'POST',
-					        //     jsonData : Ext.create('Jobs.model.Job').getData(),
-					        //     success : function(response) {
-					        //         Ext.Msg.alert('Status', 'Saved successfully.');
-					        //     },
-					        //     failure : function(response){
-					        //         Ext.Msg.alert('Status', 'Save Failed.'); 
-					        //     }
-        					// });
+                      		Ext.Ajax.request({
+            					url : 'jobs/add',
+					            method : 'POST',
+					            params:{
+									ajax_req: Ext.util.JSON.encode(Job)
+								},
+					            jsonData : Ext.create('Jobs.model.Job').getData(),
+					            success : function(response) {
+					                Ext.Msg.alert('Status', 'Saved successfully.');
+					            },
+					            failure : function(response){
+					                Ext.Msg.alert('Status', 'Save failed.'); 
+					            }
+        					});
                           	win.close();
                         }
                     }
