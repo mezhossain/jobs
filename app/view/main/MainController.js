@@ -26,7 +26,7 @@ Ext.define('Jobs.view.main.MainController', {
 					// 	shadow: true
 					// });
 					Ext.Ajax.request({
-                        url: '/api/jobs/delete/{id}',
+                        url: '/jobs/delete/{id}',
                         method  : 'DELETE',
                         jsonData: Ext.create('Jobs.model.Job').getData(),
                         success: function(response){
