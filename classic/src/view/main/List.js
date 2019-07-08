@@ -63,11 +63,11 @@ Ext.define('Jobs.view.main.JobList', {
   //     autoUpdate: true,
   //   })],
   //selModel: 'cellmodel',
-  plugins: [ Ext.create('Ext.grid.plugin.RowEditing',
+/*  plugins: [ Ext.create('Ext.grid.plugin.RowEditing',
     {
       clicksToEdit: 2,
       autoUpdate: true,
-    })],
+    })],*/
 
   bind : {
     store: '{Jobs}',
@@ -118,7 +118,10 @@ Ext.define('Jobs.view.main.JobList', {
       allowBlank: false
     }  
   }
-  ],
+  ], listeners:{
+      itemdblclick:'onDoubleClick',
+      //itemClick:'onSingleClick'
+    }
   // columns: [{
   //   text: 'Title', 
   //   dataIndex: 'title', 

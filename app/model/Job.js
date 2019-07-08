@@ -58,15 +58,5 @@ Ext.define("Jobs.model.Job",{
     },{
       	type : "presence"
     }]
-  },{
-    name : "reference",
-    type : "string",
-    validators : [ {
-        type : "length",
-        min : 1,
-        max : 255
-    },{
-        type : "presence"
-    }]
   }],
 });
