@@ -22,9 +22,7 @@ Ext.define('Jobs.view.main.MainController', {
  					Ext.Ajax.request({
 				      	url: '/jobs/delete/{id}',
 				      	method: 'DELETE',          
-				      	//jsonData:Ext.util.JSON.encode(selectedJob),
-				      	param:Ext.util.JSON.encode(selectedJob),
-				      	
+				      	jsonData:Ext.util.JSON.encode(selectedJob),
 				      	headers:
 				      	{
 				      		'Content-Type': 'application/json'
@@ -43,6 +41,7 @@ Ext.define('Jobs.view.main.MainController', {
  		}
  	},
  	onDoubleClick:function(dataview, record, item, index, e) {
+ 		var thisInstance = this;
 		var updateForm = Ext.create('Ext.Window', {
 			extend: 'Ext.window.Window',
 			title: 'Update Job',
@@ -104,6 +103,13 @@ Ext.define('Jobs.view.main.MainController', {
                       		var type = this.up('window').down('textfield[name=type]').getValue();
                       		var category = this.up('window').down('textfield[name=category]').getValue();
                       		var location = this.up('window').down('textfield[name=location]').getValue();
+                      		var updatedJob = new Jobs.model.Job({
+	                      			jobId: newJobID,
+	                      			title: newJob,
+	                      			type: type,
+	                      			category: category,
+	                      			location: location
+	                      		});
                       		var tempJob = {
                       			jobId: newJobID,
                       			title: newJob,
@@ -111,6 +117,8 @@ Ext.define('Jobs.view.main.MainController', {
                       			category: category,
                       			location: location
                       		};
+                      		thisInstance.getStore('Jobs').setFields(newJobID,newJob,type,category,location);
+                      		thisInstance.getStore('Jobs').reload;
     						Ext.Ajax.request({
 						      	url: '/jobs/update',
 						      	method: 'PUT',          
