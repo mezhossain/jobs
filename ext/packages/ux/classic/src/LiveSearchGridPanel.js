@@ -106,6 +106,14 @@ Ext.define('Ext.ux.LiveSearchGridPanel', {
             defaultText: me.defaultStatusText,
             name: 'searchStatusBar',
             items:[{
+                xtype: 'pagingtoolbar',
+                bind:{
+                    store: '{Jobs}'
+                },
+                displayInfo: true,
+                displayMsg: 'Displaying {0} to {1} of {2} &nbsp;records ',
+                emptyMsg: "No records to display&nbsp;"
+            },{
                 iconCls : 'x-fa fa-plus',
                 handler : 'newJob'
             },{

@@ -8,7 +8,7 @@
 
  	data: {
  		name: 'Jobs',
- 		selectedIssue: null,
+ 		selectedJob: null,
  		nameFilter: null
  	},
 
@@ -16,7 +16,7 @@
  		Jobs: {
  			model: 'Jobs.model.Job',
  			autoLoad: true,
- 			pageSize: 0,
+ 			pageSize: 5,
  			remoteSort: false,
  			remoteFilter: false,
  			autoSync: true,

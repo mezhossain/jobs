@@ -20,43 +20,43 @@ Ext.define("Jobs.model.Job",{
 		}]
 	},{
 		name : "title",
-  	type : "string",
-  	validators : [ {
-    		type : "length",
-    		min : 1,
-    		max : 255
+		type : "string",
+		validators : [ {
+			type : "length",
+			min : 1,
+			max : 255
+		},{
+			type : "presence"
+		}]
   	},{
-    		type : "presence"
-  	}]
-  },{
-  	name : "type",
-  	type : "string",
-    validators : [ {
-      	type : "length",
-      	min : 1,
-      	max : 255
-    },{
-      	type : "presence"
-    }]
-  },{
-  	name : "category",
-  	type : "string",
-    validators : [ {
-      	type : "length",
-      	min : 1,
-      	max : 255
-    },{
-      	type : "presence"
-    }]
-  },{
-  	name : "location",
-  	type : "string",
-    validators : [ {
-      	type : "length",
-      	min : 1,
-      	max : 255
-    },{
-      	type : "presence"
-    }]
-  }],
+		name : "type",
+		type : "string",
+		validators : [ {
+			type : "length",
+			min : 1,
+			max : 255
+		},{
+			type : "presence"
+		}]
+  	},{
+		name : "category",
+		type : "string",
+		validators : [ {
+			type : "length",
+			min : 1,
+			max : 255
+		},{
+			type : "presence"
+		}]
+  	},{
+		name : "location",
+		type : "string",
+		validators : [ {
+			type : "length",
+			min : 1,
+			max : 255
+		},{
+			type : "presence"
+		}]
+  	}],
 });

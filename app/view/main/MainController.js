@@ -15,27 +15,30 @@ Ext.define('Jobs.view.main.MainController', {
 
  	onDeleteJobConfirm(choice) {
  		if (choice === 'yes') {
- 			const selectedJob = this.getViewModel().get('selectedJob');
-			console.log(selectedJob);
+			const selectedJob = this.getViewModel().get('selectedJob');
  			selectedJob.erase({
  				callback: e => {
- 					Ext.Ajax.request({
-				      	url: '/jobs/delete/{id}',
-				      	method: 'DELETE',          
-				      	jsonData:Ext.util.JSON.encode(selectedJob),
-				      	headers:
-				      	{
-				      		'Content-Type': 'application/json'
-				      	},
-				      	success:function(response){
-				      		var obj = Ext.decode(response.responseText);
-				      		alert(obj);
-				      	},                                    
-				      	failure: function(){
-				      		alert("Failed" );
-				      	}
-			      	});
-			     	this.getStore('Jobs').load();
+					 var deleteJob = {
+						jobId: selectedJob.data.jobId,
+						title: selectedJob.data.title,
+						type: selectedJob.data.type,
+						category: selectedJob.data.category,
+						location: selectedJob.data.location
+					 };
+					 console.log(deleteJob);
+					 this.getStore('Jobs').load();
+					 Ext.Ajax.request({
+						url: '/jobs/delete',
+						method: 'DELETE',
+						headers: { 'Content-Type': 'application/json' }, 
+						jsonData:  Ext.util.JSON.encode(deleteJob),
+		        		success: function (response) {
+		            		var json = Ext.decode(response.responseText);
+			            },	        	
+			        	failure: function () {
+			            	Ext.Msg.alert('Error', "Job was not deleted");
+			        	},
+    				});
 			 	}
 			});
  		}
@@ -57,27 +60,44 @@ Ext.define('Jobs.view.main.MainController', {
 				xtype : 'textfield',
 				fieldLabel: 'Job ID',
 				name:'jobId',
-				value:record.data['jobId']
+				value: record.data['jobId'],
+				disabled: true
 			},{
 				xtype : 'textfield',
 				fieldLabel: 'Job Title',
 				name:'title',
-				value:record.data['title']
+				value: record.data['title']
 			},{
-				xtype: 'textfield',
-				name: 'type',
+				xtype: 'combo',
 				fieldLabel: 'Type',
-				value:record.data['type']
+				name: 'type',
+				queryMode: 'local',
+				valueField: 'typeAbbr',
+				displayField: 'typeName',
+				store: {
+					fields: [ 'typeAbbr','typeName' ],
+					data: [{
+							typeAbbr: 'P',
+							typeName: 'Permanent'
+						}, {
+							typeAbbr: 'T',
+							typeName: 'Temporary'
+						}, {
+							typeAbbr: 'I',
+							typeName: 'Internship'
+						}]
+				},
+				value: record.data['type']
 			},{
 				xtype : 'textfield',
 				fieldLabel: 'Category',
 				name:'category',
-				value:record.data['category']
+				value: record.data['category']
 			},{
 				xtype : 'textfield',
 				fieldLabel: 'Location',
-				name:'location',
-				value:record.data['location']
+				name: 'location',
+				value: record.data['location']
 			}],
 
 			dockedItems:[
@@ -89,7 +109,7 @@ Ext.define('Jobs.view.main.MainController', {
 				{
 					xtype: 'button',
 					text: 'Cancel',
-					handler: function(){
+					handler: function() {
 						updateForm.close();
 					}
 				},'->',{
@@ -98,44 +118,39 @@ Ext.define('Jobs.view.main.MainController', {
                   	listeners: {
                       	click: function()
                       	{
-                      		var newJobID = this.up('window').down('textfield[name=jobId]').getValue();
+							var newJobID = this.up('window').down('textfield[name=jobId]').getValue();
                       		var newJob= this.up('window').down('textfield[name=title]').getValue();
-                      		var type = this.up('window').down('textfield[name=type]').getValue();
+                      		var type = this.up('window').down('textfield[name=type]').getDisplayValue();
                       		var category = this.up('window').down('textfield[name=category]').getValue();
                       		var location = this.up('window').down('textfield[name=location]').getValue();
-                      		var updatedJob = new Jobs.model.Job({
-	                      			jobId: newJobID,
-	                      			title: newJob,
-	                      			type: type,
-	                      			category: category,
-	                      			location: location
-	                      		});
-                      		var tempJob = {
-                      			jobId: newJobID,
-                      			title: newJob,
-                      			type: type,
-                      			category: category,
-                      			location: location
-                      		};
-                      		thisInstance.getStore('Jobs').setFields(newJobID,newJob,type,category,location);
-                      		thisInstance.getStore('Jobs').reload;
+                      		var updatedJob = {
+								jobId: newJobID,
+								title: newJob,
+								type: type,
+								category: category,
+								location: location
+							};
+                      		// thisInstance.getStore('Jobs').setFields(newJob,type,category,location);
+							thisInstance.getStore('Jobs').load;
     						Ext.Ajax.request({
 						      	url: '/jobs/update',
 						      	method: 'PUT',          
-						      	jsonData:Ext.util.JSON.encode(tempJob),
+						      	jsonData: Ext.util.JSON.encode(updatedJob),
 						      	headers:
 						      	{
 						      		'Content-Type': 'application/json'
 						      	},
 						      	success:function(response){
 						      		var obj = Ext.decode(response.responseText);
-						      		alert(obj);
+						      		console.log(obj);
 						      	},                                    
 						      	failure: function(){
-						      		alert("Failed" );
+						      		console.log("Failed");
 						      	}
-					      	});
-        					updateForm.close();
+							})
+							updateForm.close();
+							window.location.href=window.location.href;
+							
         				}
     				}
     			}]
@@ -159,17 +174,29 @@ Ext.define('Jobs.view.main.MainController', {
 	   		items: [
 	   		{
 	   			xtype : 'textfield',
-	   			fieldLabel: 'Job ID',
-	   			name:'jobId'
-	   		},{
-	   			xtype : 'textfield',
 	   			fieldLabel: 'Job Title',
 	   			name:'title'
-	   		},{
-	   			xtype: 'textfield',
-	   			name: 'type',
-	   			fieldLabel: 'Type',
-	   		},{
+			},{
+				xtype: 'combo',
+				fieldLabel: 'Type',
+				name: 'type',
+				queryMode: 'local',
+				valueField: 'typeAbbr',
+				displayField: 'typeName',
+				store: {
+					fields: [ 'typeAbbr','typeName' ],
+					data: [{
+						typeAbbr: 'P',
+						typeName: 'Permanent'
+					}, {
+						typeAbbr: 'T',
+						typeName: 'Temporary'
+					}, {
+						typeAbbr: 'I',
+						typeName: 'Internship'
+					}]
+				},
+			},{
 	   			xtype : 'textfield',
 	   			fieldLabel: 'Category',
 	   			name:'category'
@@ -194,44 +221,37 @@ Ext.define('Jobs.view.main.MainController', {
 	   				text: 'Save',
 	                listeners: {
                       	click: function() {
-	                      		var newJobID = this.up('window').down('textfield[name=jobId]').getValue();
+								  //var newJobID = this.up('window').down('textfield[name=jobId]').getValue();
+								var newJobID = Math.floor(Math.random() * 1000);
 	                      		var newJob= this.up('window').down('textfield[name=title]').getValue();
-	                      		var type = this.up('window').down('textfield[name=type]').getValue();
+	                      		var type = this.up('window').down('combo[name=type]').getDisplayValue();
 	                      		var category = this.up('window').down('textfield[name=category]').getValue();
 	                      		var location = this.up('window').down('textfield[name=location]').getValue();
 	                      		console.log(newJob);
-                      			// var Job = new Jobs.model.Job({
-	                      		// 	jobId: newJobID,
-	                      		// 	title: newJob,
-	                      		// 	type: type,
-	                      		// 	category: category,
-	                      		// 	location: location
-	                      		// });
 	                      		var tempJob = {
-	                      			jobId: newJobID,
+									jobId: newJobID,
 	                      			title: newJob,
 	                      			type: type,
 	                      			category: category,
 	                      			location: location
 	                      		};
-	                      		thisInstance.getStore('Jobs').insert(0, tempJob);
+	                      		thisInstance.getStore('Jobs').insert(newJobID, tempJob);
 	                      		Ext.Ajax.request({
 	                      			url: '/jobs/add',
 	                      			method: 'POST',          
-	                      			jsonData:Ext.util.JSON.encode(tempJob),
-	                      			//param:Ext.util.JSON.encode(tempJob),
+	                      			jsonData: Ext.util.JSON.encode(tempJob),
 	                      			headers:
 	                      			{
 	                      				'Content-Type': 'application/json'
 	                      			},
 	                      			success:function(response){
 	                      				var obj = Ext.decode(response.responseText);
-	                      				alert(obj);
+	                      				this.getStore('Jobs').load();
 	                      			},                                    
 	                      			failure: function(){
-	                      				alert("Failed");
+										Ext.Msg.alert('Error', "Job was not added");
 	                      			}
-	                      		});
+								});
 	        					win.close();
 	        				}
 	        			}

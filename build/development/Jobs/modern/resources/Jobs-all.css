@@ -13211,3 +13211,27 @@ body {
 .x-big .x-tabbar-inner {
     padding: 0;
 }
+/* N:/extjs/jobs/ext/packages/ux/sass/src/Gauge.scss:1 */
+.x-gauge-text {
+    position: absolute;
+    text-align: center;
+}
+/* N:/extjs/jobs/ext/packages/ux/sass/var/Gauge.scss:28 */
+.x-gauge .x-gauge-track {
+    fill: #111;
+    fill: var(--color);
+    fill-opacity: 1;
+    stroke: #1976d2;
+    stroke: var(--base-dark-color);
+    stroke-opacity: 1;
+    stroke-width: 1;
+}
+/* N:/extjs/jobs/ext/packages/ux/sass/var/Gauge.scss:36 */
+.x-gauge .x-gauge-value {
+    fill: #2196f3;
+    fill: var(--base-color);
+    fill-opacity: 1;
+    stroke: none;
+    stroke-opacity: 1;
+    stroke-width: 1;
+}

@@ -21,11 +21,11 @@ Ext.define('Jobs.view.main.Main', {
     viewModel: 'main',
 
     ui: 'navigation',
-
+    
     tabBarHeaderPosition: 1,
     titleRotation: 0,
     tabRotation: 0,
-
+    
     header: {
         layout: {
             align: 'stretchmax'
@@ -36,6 +36,7 @@ Ext.define('Jobs.view.main.Main', {
             },
             flex: 0
         },
+        
     },
 
     tabBar: {
@@ -43,7 +44,7 @@ Ext.define('Jobs.view.main.Main', {
         layout: {
             align: 'stretch',
             overflowHandler: 'none'
-        }
+        },
     },
 
     responsiveConfig: {
@@ -77,7 +78,7 @@ Ext.define('Jobs.view.main.Main', {
         title: 'Home',
         iconCls: 'fa-home',
         items: [{
-            xtype: 'mainlist'
+            xtype: 'mainlist',
         }]
     }]
 });
