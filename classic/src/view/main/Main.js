@@ -1,6 +1,6 @@
 /**
  * This class is the main view for the application. It is specified in app.js as the
- * "mainView" property. That setting automatically applies the "viewport"
+ * 'mainView' property. That setting automatically applies the 'viewport'
  * plugin causing this view to become the body element (i.e., the viewport).
  *
  * TODO - Replace this content of this view to suite the needs of your application.
@@ -19,6 +19,8 @@ Ext.define('Jobs.view.main.Main', {
 
     controller: 'main',
     viewModel: 'main',
+    layout:'fit',
+    scrollable: true,
 
     ui: 'navigation',
     
@@ -79,6 +81,7 @@ Ext.define('Jobs.view.main.Main', {
         iconCls: 'fa-home',
         items: [{
             xtype: 'mainlist',
-        }]
+        }],
+        layout: 'fit'
     }]
 });

@@ -8,9 +8,12 @@ Ext.define('Ext.ux.LiveSearchGridPanel', {
         'Ext.form.field.Checkbox',
         'Ext.form.field.Text',
         'Ext.ux.statusbar.StatusBar',
+        'Ext.toolbar.Paging',
     ],
     controller: 'main',
-    
+    viewModel: { type: 'main' },
+    scrollable: true,
+
     /**
      * @private
      * search value initialization
@@ -64,7 +67,6 @@ Ext.define('Ext.ux.LiveSearchGridPanel', {
              name: 'searchField',
              hideLabel: true,
              flex: 3,
-//             width: 200,
              listeners: {
                  change: {
                      fn: me.onTextFieldChange,
@@ -105,15 +107,17 @@ Ext.define('Ext.ux.LiveSearchGridPanel', {
         {
             defaultText: me.defaultStatusText,
             name: 'searchStatusBar',
-            items:[{
-                xtype: 'pagingtoolbar',
-                bind:{
-                    store: '{Jobs}'
-                },
-                displayInfo: true,
-                displayMsg: 'Displaying {0} to {1} of {2} &nbsp;records ',
-                emptyMsg: "No records to display&nbsp;"
-            },{
+            items:[
+            // {
+            //     xtype: 'pagingtoolbar',
+            //     bind:{
+            //         store: '{Jobs}'
+            //     },
+            //     displayInfo: true,
+            //     displayMsg: 'Displaying {0} to {1} of {2} &nbsp;records ',
+            //     emptyMsg: "No records to display&nbsp;"
+            // },
+            {
                 iconCls : 'x-fa fa-plus',
                 handler : 'newJob'
             },{

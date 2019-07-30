@@ -15,8 +15,8 @@
  	stores: {
  		Jobs: {
  			model: 'Jobs.model.Job',
- 			autoLoad: true,
- 			pageSize: 5,
+ 			autoLoad: {start: 0, limit: 14},
+ 			pageSize: 14,
  			remoteSort: false,
  			remoteFilter: false,
  			autoSync: true,

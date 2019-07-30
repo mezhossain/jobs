@@ -18,16 +18,16 @@ Ext.define('Jobs.view.main.MainController', {
 			const selectedJob = this.getViewModel().get('selectedJob');
  			selectedJob.erase({
  				callback: e => {
-					 var deleteJob = {
+					var deleteJob = {
 						jobId: selectedJob.data.jobId,
 						title: selectedJob.data.title,
 						type: selectedJob.data.type,
 						category: selectedJob.data.category,
 						location: selectedJob.data.location
-					 };
-					 console.log(deleteJob);
-					 this.getStore('Jobs').load();
-					 Ext.Ajax.request({
+					};
+					console.log(deleteJob);
+					this.getStore('Jobs').load();
+					Ext.Ajax.request({
 						url: '/jobs/delete',
 						method: 'DELETE',
 						headers: { 'Content-Type': 'application/json' }, 
@@ -149,7 +149,7 @@ Ext.define('Jobs.view.main.MainController', {
 						      	}
 							})
 							updateForm.close();
-							window.location.href=window.location.href;
+							// window.location.href=window.location.href;
 							
         				}
     				}
