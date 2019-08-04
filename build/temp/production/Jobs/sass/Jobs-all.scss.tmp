@@ -813,6 +813,7 @@ $include-ext-viewport-windowsphone: dynamic(true);;
 $include-jobs-application: dynamic(true);;
 $include-jobs-model-job: dynamic(true);;
 $include-jobs-store-personnel: dynamic(true);;
+$include-jobs-view-chart-pie: dynamic(false);;
 $include-jobs-view-main-list: dynamic(true);;
 $include-jobs-view-main-main: dynamic(true);;
 $include-jobs-view-main-maincontroller: dynamic(true);;

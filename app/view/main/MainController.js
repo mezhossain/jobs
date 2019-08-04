@@ -131,7 +131,8 @@ Ext.define('Jobs.view.main.MainController', {
 								location: location
 							};
                       		// thisInstance.getStore('Jobs').setFields(newJob,type,category,location);
-							thisInstance.getStore('Jobs').load;
+							thisInstance.getStore('Jobs').reload;
+							thisInstance.getView().refresh;
     						Ext.Ajax.request({
 						      	url: '/jobs/update',
 						      	method: 'PUT',          
@@ -149,7 +150,7 @@ Ext.define('Jobs.view.main.MainController', {
 						      	}
 							})
 							updateForm.close();
-							// window.location.href=window.location.href;
+							window.location.href=window.location.href;
 							
         				}
     				}
@@ -235,7 +236,8 @@ Ext.define('Jobs.view.main.MainController', {
 	                      			category: category,
 	                      			location: location
 	                      		};
-	                      		thisInstance.getStore('Jobs').insert(newJobID, tempJob);
+								  thisInstance.getStore('Jobs').insert(newJobID, tempJob);
+								  thisInstance.getView().refresh;
 	                      		Ext.Ajax.request({
 	                      			url: '/jobs/add',
 	                      			method: 'POST',          
@@ -252,7 +254,8 @@ Ext.define('Jobs.view.main.MainController', {
 										Ext.Msg.alert('Error', "Job was not added");
 	                      			}
 								});
-	        					win.close();
+								win.close();
+								// window.location.href=window.location.href;
 	        				}
 	        			}
 	        		}]

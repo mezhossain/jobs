@@ -83,5 +83,11 @@ Ext.define('Jobs.view.main.Main', {
             xtype: 'mainlist',
         }],
         layout: 'fit'
+    },{
+        title: 'Chart',
+        glyph: 'f200',
+        items: [{
+            xtype: 'piechart'
+        }]
     }]
 });

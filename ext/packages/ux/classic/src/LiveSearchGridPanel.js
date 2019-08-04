@@ -1,6 +1,3 @@
-/**
- * A GridPanel class with live search support.
- */
 Ext.define('Ext.ux.LiveSearchGridPanel', {
     extend: 'Ext.grid.Panel',
     requires: [

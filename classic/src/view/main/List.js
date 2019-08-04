@@ -10,7 +10,7 @@ Ext.define('Jobs.view.main.JobList', {
   ],
   controller: 'main',
   viewModel: 'main',
-  
+  scrollable: true,
   id: 'jobGrid',
   title: 'Jobs',
 

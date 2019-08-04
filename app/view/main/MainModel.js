@@ -14,7 +14,7 @@
 
  	stores: {
  		Jobs: {
- 			model: 'Jobs.model.Job',
+			model: 'Jobs.model.Job',
  			autoLoad: {start: 0, limit: 14},
  			pageSize: 14,
  			remoteSort: false,
